@@ -1,6 +1,6 @@
 package si.fri.prpo.nakupovanje.entitete;
 import javax.persistence.*;
-import java.time.Instant;
+
 import java.util.List;
 
 @Entity
@@ -67,7 +67,7 @@ public class Uporabnik {
     private String priimek;
     @Column(name="email")
     private String email;
-    @OneToMany(mappedBy = "uporabnik",cascade =CascadeType.ALL)
+    @OneToMany(mappedBy = "uporabnik")
     private List<NakupovalniSeznam> nakupovalniSeznami;
 
     // getter in setter metode

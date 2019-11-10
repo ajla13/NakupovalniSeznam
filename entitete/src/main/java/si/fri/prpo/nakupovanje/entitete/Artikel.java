@@ -36,7 +36,9 @@ public class Artikel {
     }
 
     @ManyToOne
+    @JoinColumn(name = "seznam_id")
     private NakupovalniSeznam seznam;
+
     public Integer getId() {
         return id;
     }

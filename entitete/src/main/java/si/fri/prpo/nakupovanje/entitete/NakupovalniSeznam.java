@@ -13,35 +13,32 @@ import java.util.List;
                         query="SELECT n FROM NakupovalniSeznam n WHERE n.uporabnik=uporabnik"),
                 @NamedQuery(name= "NakupovalniSeznam.getNazivi",
                         query="SELECT n FROM NakupovalniSeznam n WHERE n.naziv=naziv"),
-                @NamedQuery(name= "NakupovalniSeznam.getOpisi",
-                        query="SELECT n FROM NakupovalniSeznam n WHERE n.opis=opis")
+                @NamedQuery(name= "NakupovalniSeznam.getArtikli",
+                        query="SELECT n FROM NakupovalniSeznam n WHERE n.artikli=artikli")
+
         })
 public class NakupovalniSeznam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
+    private Integer id;
     @Column(name = "naziv")
     private String naziv;
-
-    @Column(name = "opis")
-    private String opis;
     @Column(name = "ustvarjen")
     private Instant ustvarjen;
 
-    public NakupovalniSeznam(Instant ustvarjen,String opis, String naziv) {
+    public NakupovalniSeznam(Instant ustvarjen, String naziv) {
         this.ustvarjen = ustvarjen;
         this.naziv=naziv;
-        this.opis=opis;
 
     }
 
     @ManyToOne
     @JoinColumn(name = "uporabnik_id")
     private Uporabnik uporabnik;
-    @OneToMany(mappedBy = "nakupovalniSeznam")
+    @OneToMany(mappedBy = "seznam")
     private List<Artikel> artikli;
-    @ManyToMany(cascade = {
+  /*  @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
 
@@ -49,7 +46,7 @@ public class NakupovalniSeznam {
     @JoinTable(name="nakupovalni_seznam_oznaka",
     joinColumns=@JoinColumn(name="nakupovalni_seznam_id"),
     inverseJoinColumns = @JoinColumn(name="oznaka_id"))
-    private List<Oznaka> oznake;
+    private List<Oznaka> oznake;*/
     // getter in setter metode
 
 
@@ -83,22 +80,6 @@ public class NakupovalniSeznam {
 
     public void setUstvarjen(Instant ustvarjen) {
         this.ustvarjen = ustvarjen;
-    }
-
-    public String getOpis() {
-        return opis;
-    }
-
-    public void setOpis(String opis) {
-        this.opis = opis;
-    }
-
-    public List<Oznaka> getOznake() {
-        return oznake;
-    }
-
-    public void setOznake(List<Oznaka> oznake) {
-        this.oznake = oznake;
     }
 
     public List<Artikel> getArtikli() {

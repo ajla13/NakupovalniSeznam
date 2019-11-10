@@ -1,9 +1,12 @@
 package si.fri.prpo.nakupovanje.zrno;
 
-import org.slf4j.Logger;
+
 import si.fri.prpo.nakupovanje.entitete.Uporabnik;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @ApplicationScoped
 public class UporabnikiZrno {
