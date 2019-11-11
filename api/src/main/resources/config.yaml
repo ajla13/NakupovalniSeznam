@@ -5,7 +5,8 @@ kumuluzee:
     name: dev
   datasources:
     - jndi-name: jdbc/nakupovalniseznam
-      connection-url: jdbc:postgresql://localhost:5432/nakupovalniseznam
+#      connection-url: jdbc:postgresql://localhost:5432/nakupovalniseznam
+      connection-url: jdbc:postgresql://192.168.99.100:35432/uporabniki
       username: postgres
       password: postgres
       max-pool-size: 20

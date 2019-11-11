@@ -9,11 +9,11 @@ import java.util.List;
         {
                 @NamedQuery(name = "Artikel.getAll", query = "SELECT a FROM  Artikel a"),
                 @NamedQuery(name= "Artikel.getSeznamOfCene",
-                        query="SELECT a FROM Artikel a WHERE a.cena=cena"),
+                        query="SELECT a FROM Artikel a WHERE a.cena=:cena"),
                 @NamedQuery(name= "Artikel.getSeznamOfKolicina",
-                        query="SELECT a FROM Artikel a WHERE a.kolicina=kolicina"),
+                        query="SELECT a FROM Artikel a WHERE a.kolicina=:kolicina"),
                 @NamedQuery(name= "Artikel.getSeznamOfNazivi",
-                        query="SELECT a FROM Artikel a WHERE a.naziv=naziv")
+                        query="SELECT a FROM Artikel a WHERE a.naziv=:naziv")
         })
 public class Artikel {
     @Id
@@ -28,7 +28,10 @@ public class Artikel {
     @Column(name="kolicina")
     private Integer kolicina;
 
-    public Artikel(String naziv,int kolicina, int cena) {
+    public Artikel() {
+    }
+
+    public Artikel(String naziv, int kolicina, int cena) {
         this.naziv = naziv;
         this.kolicina=kolicina;
         this.cena=cena;

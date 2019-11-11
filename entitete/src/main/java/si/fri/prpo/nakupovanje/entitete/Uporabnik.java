@@ -9,17 +9,19 @@ import java.util.List;
         {
                 @NamedQuery(name = "Uporabnik.getAll", query = "SELECT u FROM Uporabnik u"),
                 @NamedQuery(name= "Uporabnik.getSeznamOfNames",
-                        query="SELECT u FROM Uporabnik u WHERE u.ime=ime"),
+                        query="SELECT u FROM Uporabnik u WHERE u.ime=:ime"),
                 @NamedQuery(name= "Uporabnik.getSeznamOfSurnames",
-                        query="SELECT u FROM Uporabnik u WHERE u.priimek=priimek"),
+                        query="SELECT u FROM Uporabnik u WHERE u.priimek=:priimek"),
                 @NamedQuery(name= "Uporabnik.getSeznamOfEmails",
-                        query="SELECT u FROM Uporabnik u WHERE u.email=email")
+                        query="SELECT u FROM Uporabnik u WHERE u.email=:email")
         })
 public class Uporabnik {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    public Uporabnik() {
+    }
 
     public Uporabnik(String ime, String priimek, String uporabnisko_ime, String email) {
         this.ime = ime;

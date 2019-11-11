@@ -10,11 +10,11 @@ import java.util.List;
         {
                 @NamedQuery(name = "NakupovalniSeznam.getAll", query = "SELECT n FROM NakupovalniSeznam n"),
                 @NamedQuery(name= "NakupovalniSeznam.getSeznamOfUporabnik",
-                        query="SELECT n FROM NakupovalniSeznam n WHERE n.uporabnik=uporabnik"),
+                        query="SELECT n FROM NakupovalniSeznam n WHERE n.uporabnik=:uporabnik"),
                 @NamedQuery(name= "NakupovalniSeznam.getNazivi",
-                        query="SELECT n FROM NakupovalniSeznam n WHERE n.naziv=naziv"),
+                        query="SELECT n FROM NakupovalniSeznam n WHERE n.naziv=:naziv"),
                 @NamedQuery(name= "NakupovalniSeznam.getArtikli",
-                        query="SELECT n FROM NakupovalniSeznam n WHERE n.artikli=artikli")
+                        query="SELECT n FROM NakupovalniSeznam n WHERE n.artikli=:artikli")
 
         })
 public class NakupovalniSeznam {
@@ -26,6 +26,9 @@ public class NakupovalniSeznam {
     private String naziv;
     @Column(name = "ustvarjen")
     private Instant ustvarjen;
+
+    public NakupovalniSeznam() {
+    }
 
     public NakupovalniSeznam(Instant ustvarjen, String naziv) {
         this.ustvarjen = ustvarjen;
