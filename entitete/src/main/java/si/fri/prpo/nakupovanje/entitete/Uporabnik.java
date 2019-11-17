@@ -54,6 +54,14 @@ public class Uporabnik {
         this.uporabnisko_ime = uporabnisko_ime;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String toString() {
         return "Uporabnik{" +
                 "ime='" + ime + '\'' +
