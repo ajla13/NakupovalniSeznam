@@ -1,2 +1,11 @@
 INSERT INTO uporabnik (ime, priimek, uporabnisko_ime, email) VALUES ('Petra', 'Kos', 'petrakos', 'petra.kos@hotmail.com');
 INSERT INTO uporabnik (ime, priimek, uporabnisko_ime, email) VALUES ('Miha', 'Novak', 'mihanovak', 'miha.novak@gmail.com');
+INSERT INTO uporabnik (ime, priimek, uporabnisko_ime, email) VALUES ('Emil', 'Batakliev', 'eb4361', 'eb4361@student.uni-lj.si');
+INSERT INTO uporabnik (ime, priimek, uporabnisko_ime, email) VALUES ('Ajla', 'Hamedovic', 'ajla13', 'ah0715@student.uni-lj.si');
+INSERT INTO artikel (naziv, kolicina, cena) VALUES ('tomato', '50', '1.18');
+INSERT INTO artikel (naziv, kolicina, cena) VALUES ('banana', '30', '1.42');
+INSERT INTO artikel (naziv, kolicina, cena) VALUES ('apple', '70', '0.94');
+INSERT INTO artikel (naziv, kolicina, cena) VALUES ('lettuce', '20', '0.63');
+INSERT INTO nakupovalni_seznam (naziv, uporabnik, ustvarjen, artikel) VALUES ('vegetables', (SELECT a FROM uporabnik a WHERE a.ime = 'Emil') , 'True', (SELECT a FROM uporabnik a WHERE a.naziv = 'tomato' OR a.naziv = 'lettuce'));
+INSERT INTO nakupovalni_seznam (naziv, uporabnik, ustvarjen, artikel) VALUES ('fruits', (SELECT a FROM uporabnik a WHERE a.ime = 'Ajla'), 'True', (SELECT a FROM uporabnik a WHERE a.naziv = 'apple' OR a.naziv = 'banana'));
+INSERT INTO nakupovalni_seznam (naziv, uporabnik, ustvarjen, artikel) VALUES ('mixed', (SELECT a FROM uporabnik a WHERE a.ime = 'Petra'), 'True', (SELECT a FROM uporabnik a WHERE a.naziv = 'tomato' OR a.naziv = 'banana'));

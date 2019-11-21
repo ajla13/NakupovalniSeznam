@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="Maven: com.kumuluz.ee:kumuluzee-jpa-eclipselink:3.5.0">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Downloads/jar_files/slf4j-nop-1.7.25.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/kumuluz/ee/kumuluzee-jpa-eclipselink/3.5.0/kumuluzee-jpa-eclipselink-3.5.0.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$MAVEN_REPOSITORY$/com/kumuluz/ee/kumuluzee-jpa-eclipselink/3.5.0/kumuluzee-jpa-eclipselink-3.5.0-javadoc.jar!/" />
