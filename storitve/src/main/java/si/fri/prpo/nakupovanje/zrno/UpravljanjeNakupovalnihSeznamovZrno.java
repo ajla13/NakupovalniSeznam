@@ -2,7 +2,6 @@ package si.fri.prpo.nakupovanje.zrno;
 
 import org.jboss.logging.Logger;
 import si.fri.prpo.nakupovanje.entitete.Artikel;
-import si.fri.prpo.nakupovanje.entitete.NakupovalniSeznam;
 import si.fri.prpo.nakupovanje.entitete.NakupovalniSeznamDto;
 import si.fri.prpo.nakupovanje.entitete.Uporabnik;
 
@@ -12,7 +11,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 public class UpravljanjeNakupovalnihSeznamovZrno {
-    private Logger log = Logger.getLogger(Artikel.class.getName());
 
     @Inject
     private ArtikelZrno artikelZrno;

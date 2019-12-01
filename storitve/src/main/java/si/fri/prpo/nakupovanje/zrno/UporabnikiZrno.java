@@ -56,14 +56,14 @@ public class UporabnikiZrno {
         return uporabnikId;
     }
     @Transactional
-    public Uporabnik dodajUporabnik (Uporabnik uporabnik){
+    public Uporabnik dodajUporabnika (Uporabnik uporabnik){
         if(uporabnik!=null){
             em.persist(uporabnik);
         }
         return uporabnik;
     }
     @Transactional
-    public void psodobiUporabnika (Uporabnik uporabnik, int uporabnikId){
+    public void posodobiUporabnika (int uporabnikId, Uporabnik uporabnik){
         Uporabnik u =em.find(Uporabnik.class,uporabnikId);
         uporabnik.setId(u.getId());
         em.merge(uporabnik);

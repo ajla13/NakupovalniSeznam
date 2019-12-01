@@ -60,7 +60,7 @@ public class NakupovalniSeznamZrno {
         return seznam;
     }
     @Transactional
-    public void psodobiSeznam (NakupovalniSeznam seznam, int seznamId){
+    public void posodobiSeznam (int seznamId, NakupovalniSeznam seznam){
        NakupovalniSeznam s =em.find(NakupovalniSeznam.class,seznamId);
         seznam.setId(s.getId());
         em.merge(seznam);

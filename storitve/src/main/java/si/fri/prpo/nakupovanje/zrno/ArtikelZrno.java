@@ -57,7 +57,7 @@ public class ArtikelZrno {
         return artikel;
     }
     @Transactional
-    public void psodobiArtikel(Artikel artikel, int artikelId){
+    public void posodobiArtikel(int artikelId, Artikel artikel){
         Artikel a=em.find(Artikel.class,artikelId);
         artikel.setId(a.getId());
         em.merge(artikel);
