@@ -3,6 +3,7 @@ package si.fri.prpo.nakupovanje.servlet.api.v1.viri;
 
 import si.fri.prpo.nakupovanje.entitete.NakupovalniSeznam;
 import si.fri.prpo.nakupovanje.zrno.NakupovalniSeznamZrno;
+import si.fri.prpo.nakupovanje.zrno.anotacija.BeleziKlice;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -19,7 +20,7 @@ public class SeznamVir {
 
     @Inject
     private NakupovalniSeznamZrno nakupovalniSeznamZrno;
-
+    @BeleziKlice
     @GET
     public Response vrniSeznami(){
 

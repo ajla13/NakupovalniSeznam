@@ -4,6 +4,7 @@ package si.fri.prpo.nakupovanje.servlet.api.v1.viri;
 import si.fri.prpo.nakupovanje.entitete.Artikel;
 import si.fri.prpo.nakupovanje.entitete.NakupovalniSeznam;
 import si.fri.prpo.nakupovanje.zrno.ArtikelZrno;
+import si.fri.prpo.nakupovanje.zrno.anotacija.BeleziKlice;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -20,7 +21,7 @@ public class ArtikelVir {
 
     @Inject
     private ArtikelZrno artikelZrno;
-
+    @BeleziKlice
     @GET
     public Response vrniArtikli(){
 

@@ -57,10 +57,11 @@ public class ArtikelZrno {
         return artikel;
     }
     @Transactional
-    public void posodobiArtikel(int artikelId, Artikel artikel){
+    public Artikel posodobiArtikel(int artikelId, Artikel artikel){
         Artikel a=em.find(Artikel.class,artikelId);
         artikel.setId(a.getId());
         em.merge(artikel);
+        return artikel;
     }
 
 

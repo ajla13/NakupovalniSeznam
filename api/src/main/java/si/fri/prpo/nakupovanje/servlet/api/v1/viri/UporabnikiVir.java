@@ -2,6 +2,7 @@ package si.fri.prpo.nakupovanje.servlet.api.v1.viri;
 
 import si.fri.prpo.nakupovanje.entitete.Uporabnik;
 import si.fri.prpo.nakupovanje.zrno.UporabnikiZrno;
+import si.fri.prpo.nakupovanje.zrno.anotacija.BeleziKlice;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -18,7 +19,7 @@ public class UporabnikiVir {
 
     @Inject
     private UporabnikiZrno uporabnikiZrno;
-
+    @BeleziKlice
     @GET
     public Response vrniUporabnike(){
 
