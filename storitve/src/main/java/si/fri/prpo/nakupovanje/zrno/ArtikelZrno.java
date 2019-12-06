@@ -1,5 +1,7 @@
 package si.fri.prpo.nakupovanje.zrno;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.nakupovanje.entitete.Artikel;
 import si.fri.prpo.nakupovanje.entitete.Uporabnik;
 
@@ -28,11 +30,15 @@ public class ArtikelZrno {
     @PersistenceContext(unitName = "nakupovalni-seznami-jpa")
     private EntityManager em;
 
-    public List<Artikel> getArtikli() {
+    public List<Artikel> getArtikli(QueryParameters query) {
 
-        List<Artikel> artikli= em.createNamedQuery("Artikel.getAll").getResultList();
+        List<Artikel> artikli= JPAUtils.queryEntities(em, Artikel.class, query);
 
         return artikli;
+    }
+    public Long pridobiArtikleCount(QueryParameters query) {
+
+        return JPAUtils.queryEntitiesCount(em, Artikel.class, query);
     }
 
     public Artikel pridobiArtikel (int artikelId){

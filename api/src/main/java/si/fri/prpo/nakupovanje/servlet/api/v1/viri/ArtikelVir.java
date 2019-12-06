@@ -1,6 +1,7 @@
 package si.fri.prpo.nakupovanje.servlet.api.v1.viri;
 
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import si.fri.prpo.nakupovanje.entitete.Artikel;
 import si.fri.prpo.nakupovanje.entitete.NakupovalniSeznam;
 import si.fri.prpo.nakupovanje.zrno.ArtikelZrno;
@@ -9,8 +10,10 @@ import si.fri.prpo.nakupovanje.zrno.anotacija.BeleziKlice;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 @Path("artikli")
@@ -18,16 +21,21 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @ApplicationScoped
 public class ArtikelVir {
-
+    @Context
+    protected UriInfo uriInfo;
     @Inject
     private ArtikelZrno artikelZrno;
     @BeleziKlice
     @GET
     public Response vrniArtikli(){
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        List<Artikel> artikli = artikelZrno.getArtikli(query);
 
-        List<Artikel> artikli = artikelZrno.getArtikli();
-
-        return Response.status(Response.Status.OK).entity(artikli).build();
+        Long pridobiArtikleCount=artikelZrno.pridobiArtikleCount(query);
+        return Response
+                .ok(artikelZrno.getArtikli(query))
+                .header( "X-Total-Count",pridobiArtikleCount)
+                .build();
     }
 
     @GET

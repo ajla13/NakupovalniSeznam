@@ -1,6 +1,7 @@
 package si.fri.prpo.nakupovanje.servlet.api.v1.viri;
 
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import si.fri.prpo.nakupovanje.entitete.NakupovalniSeznam;
 import si.fri.prpo.nakupovanje.zrno.NakupovalniSeznamZrno;
 import si.fri.prpo.nakupovanje.zrno.anotacija.BeleziKlice;
@@ -8,8 +9,10 @@ import si.fri.prpo.nakupovanje.zrno.anotacija.BeleziKlice;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 @Path("seznami")
@@ -17,16 +20,20 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @ApplicationScoped
 public class SeznamVir {
-
+    @Context
+    protected UriInfo uriInfo;
     @Inject
     private NakupovalniSeznamZrno nakupovalniSeznamZrno;
     @BeleziKlice
     @GET
     public Response vrniSeznami(){
-
-        List<NakupovalniSeznam> seznami = nakupovalniSeznamZrno.getNakupovalniSeznami();
-
-        return Response.status(Response.Status.OK).entity(seznami).build();
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        List<NakupovalniSeznam> seznami = nakupovalniSeznamZrno.getNakupovalniSeznami(query);
+        Long pridobiSeznameCount=nakupovalniSeznamZrno.pridobiSeznameCount(query);
+        return Response
+                .ok(nakupovalniSeznamZrno.getNakupovalniSeznami(query))
+                .header( "X-Total-Count",pridobiSeznameCount)
+                .build();
     }
 
     @GET

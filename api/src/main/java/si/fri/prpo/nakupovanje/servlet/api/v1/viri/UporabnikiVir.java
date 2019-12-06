@@ -1,5 +1,6 @@
 package si.fri.prpo.nakupovanje.servlet.api.v1.viri;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import si.fri.prpo.nakupovanje.entitete.Uporabnik;
 import si.fri.prpo.nakupovanje.zrno.UporabnikiZrno;
 import si.fri.prpo.nakupovanje.zrno.anotacija.BeleziKlice;
@@ -7,8 +8,10 @@ import si.fri.prpo.nakupovanje.zrno.anotacija.BeleziKlice;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 @Path("uporabniki")
@@ -16,16 +19,20 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @ApplicationScoped
 public class UporabnikiVir {
-
+    @Context
+    protected UriInfo uriInfo;
     @Inject
     private UporabnikiZrno uporabnikiZrno;
     @BeleziKlice
     @GET
     public Response vrniUporabnike(){
-
-        List<Uporabnik> uporabniki = uporabnikiZrno.getUporabniki();
-
-        return Response.status(Response.Status.OK).entity(uporabniki).build();
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        List<Uporabnik> uporabniki = uporabnikiZrno.getUporabniki(query);
+        Long pridobiUporabnikeCount=uporabnikiZrno.pridobiUporabnikeCount(query);
+        return Response
+                .ok(uporabnikiZrno.getUporabniki(query))
+                .header( "X-Total-Count",pridobiUporabnikeCount)
+                .build();
     }
 
     @GET

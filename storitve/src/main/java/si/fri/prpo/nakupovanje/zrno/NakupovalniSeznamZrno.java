@@ -1,6 +1,8 @@
 package si.fri.prpo.nakupovanje.zrno;
 
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.nakupovanje.entitete.NakupovalniSeznam;
 
 
@@ -31,9 +33,9 @@ public class NakupovalniSeznamZrno {
     @PersistenceContext(unitName = "nakupovalni-seznami-jpa")
     private EntityManager em;
 
-    public List<NakupovalniSeznam> getNakupovalniSeznami() {
+    public List<NakupovalniSeznam> getNakupovalniSeznami(QueryParameters query) {
 
-        List<NakupovalniSeznam> seznami = em.createNamedQuery("NakupovalniSeznam.getAll").getResultList();
+        List<NakupovalniSeznam> seznami = JPAUtils.queryEntities(em, NakupovalniSeznam.class, query);;
 
         return seznami;
     }
@@ -43,6 +45,10 @@ public class NakupovalniSeznamZrno {
 
         return seznam;
 
+    }
+    public Long pridobiSeznameCount(QueryParameters query) {
+
+        return JPAUtils.queryEntitiesCount(em, NakupovalniSeznam.class, query);
     }
     @Transactional
     public Integer odstraniSeznam(int seznamId) {

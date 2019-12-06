@@ -24,9 +24,14 @@
             <artifactId>kumuluzee-jax-rs-jersey</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.kumuluz.ee.rest</groupId>
+            <artifactId>kumuluzee-rest-core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>si.fri.prpo.nakupovanje</groupId>
             <artifactId>storitve</artifactId>
         </dependency>
+
     </dependencies>
 
 </project>

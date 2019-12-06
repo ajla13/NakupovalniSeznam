@@ -3,6 +3,8 @@ package si.fri.prpo.nakupovanje.zrno;
 
 //import org.eclipse.persistence.internal.oxm.schema.model.List;
 //import com.sun.tools.javac.util.List;
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.nakupovanje.entitete.Uporabnik;
 
 import javax.annotation.PostConstruct;
@@ -34,13 +36,17 @@ public class UporabnikiZrno {
     @PersistenceContext(unitName = "nakupovalni-seznami-jpa")
     private EntityManager em;
 
-    public List<Uporabnik> getUporabniki() {
+    public List<Uporabnik> getUporabniki(QueryParameters query) {
 
-        List<Uporabnik> uporabniki = em.createNamedQuery("Uporabnik.getAll").getResultList();
+        List<Uporabnik> uporabniki = JPAUtils.queryEntities(em, Uporabnik.class, query);
 
         return uporabniki;
     }
 
+    public Long pridobiUporabnikeCount(QueryParameters query) {
+
+        return JPAUtils.queryEntitiesCount(em, Uporabnik.class, query);
+    }
     public Uporabnik pridobiUporabnika (int uporabnikId){
         Uporabnik uporabnik =em.find(Uporabnik.class,uporabnikId);
 
