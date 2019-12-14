@@ -4,6 +4,7 @@ import org.jboss.logging.Logger;
 import si.fri.prpo.nakupovanje.entitete.Artikel;
 import si.fri.prpo.nakupovanje.entitete.NakupovalniSeznamDto;
 import si.fri.prpo.nakupovanje.entitete.Uporabnik;
+import si.fri.prpo.nakupovanje.zrno.Izjeme.NevaljalniNakupovalniSeznamDTOIzjema;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -26,7 +27,10 @@ public class UpravljanjeNakupovalnihSeznamovZrno {
         if(u.getIme()!=null && u.getPriimek()!=null && u.getUporabnisko_ime()!=null){
             return true;
         }
-        return false;
+        String message="Important Fields Missing!";
+
+        throw new NevaljalniNakupovalniSeznamDTOIzjema(message);
+
     }
 
     @Transactional
