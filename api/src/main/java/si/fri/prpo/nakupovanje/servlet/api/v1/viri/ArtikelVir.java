@@ -25,7 +25,7 @@ public class ArtikelVir {
     protected UriInfo uriInfo;
     @Inject
     private ArtikelZrno artikelZrno;
-    @BeleziKlice
+
     @Operation(description="Vrne Seznam Artiklov.", summary="Seznam Artiklov",tags="artikli",
             responses={
                     @ApiResponse(responseCode = "200",
@@ -33,17 +33,19 @@ public class ArtikelVir {
                             content = @Content(
                                     array = @ArraySchema(schema = @Schema(implementation = Artikel.class))),
                             headers = {@Header(name = "X-Total-Count", description="Vrne število artiklov")}
-                    )});
+                    )})
 
 
     @GET
+
+    @BeleziKlice
     public Response vrniArtikli(){
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
         List<Artikel> artikli = artikelZrno.getArtikli(query);
 
         Long pridobiArtikleCount=artikelZrno.pridobiArtikleCount(query);
         return Response
-                .ok(artikelZrno.getArtikli(query))
+                .ok(artikli)
                 .header( "X-Total-Count",pridobiArtikleCount)
                 .build();
     }
@@ -95,7 +97,7 @@ public class ArtikelVir {
     public Response posodobiArtikel(@Parameter(description="Identifikator",
             required=true)@RequestBody(description ="DTO objekt za posodobljanje artikla",
             required=true, content=@Content(schema = @Schema(implementation = Artikel.class)))@PathParam("id") Integer id, Artikel artikel){
-        return Response.status(Response.Status.CREATED).entity(artikelZrno.posodobiArtikel(id, artikel)).build();
+        return Response.status(Response.Status.OK).entity(artikelZrno.posodobiArtikel(id, artikel)).build();
     }
     @Operation(description="Odstrani Arikel.", summary="Odstrani artikel",tags="artikli",
             responses={

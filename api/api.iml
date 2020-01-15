@@ -89,7 +89,6 @@
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: javax.xml.bind:jaxb-api:2.3.1" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:javax.activation-api:1.2.0" level="project" />
-    <orderEntry type="library" name="Maven: com.kumuluz.ee.openapi:kumuluzee-openapi:3.8.1" level="project" />
     <orderEntry type="library" name="Maven: com.kumuluz.ee.rest:kumuluzee-rest-core:1.1.0" level="project" />
     <orderEntry type="module" module-name="storitve" />
     <orderEntry type="library" name="Maven: com.kumuluz.ee:kumuluzee-cdi-weld:3.5.0" level="project" />

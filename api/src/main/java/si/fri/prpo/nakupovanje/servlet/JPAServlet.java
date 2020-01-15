@@ -38,6 +38,6 @@ public class JPAServlet extends HttpServlet {
         // izpis uporabnikov na spletno stran
 
         writer.append("<br/><br/>Uporabniki:<br/>");
-        uporabnikiZrno.getUporabniki().stream().forEach(u -> writer.append(u.toString() + "<br/><br/>"));
+        //uporabnikiZrno.getUporabniki().stream().forEach(u -> writer.append(u.toString() + "<br/><br/>"));
     }
 }
