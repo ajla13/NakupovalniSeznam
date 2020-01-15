@@ -2,10 +2,17 @@ package si.fri.prpo.nakupovanje.servlet.api.v1.viri;
 
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import si.fri.prpo.nakupovanje.entitete.Artikel;
 import si.fri.prpo.nakupovanje.entitete.NakupovalniSeznam;
 import si.fri.prpo.nakupovanje.zrno.NakupovalniSeznamZrno;
-import si.fri.prpo.nakupovanje.zrno.anotacija.BeleziKlice;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -24,16 +31,13 @@ public class SeznamVir {
     protected UriInfo uriInfo;
     @Inject
     private NakupovalniSeznamZrno nakupovalniSeznamZrno;
-    @BeleziKlice
-    @Operation(description="Vrne Sezname.", summary="Seznam Seznamov",tags="seznami",
-            responses={
-                    @ApiResponse(responseCode = "200",
-                            description = "Seznam Nakupovalnih Seznamov",
-                            content = @Content(
-                                    array = @ArraySchema(schema = @Schema(implementation = NakupovalniSeznam.class))),
-                            headers = {@Header(name = "X-Total-Count", description="Vrne število seznamov")}
-                    )});
+    // @BeleziKlice
 
+    @Operation(description = "Pridobi artikle",
+            summary = "Pridobi uporabnike", tags = "artikel", responses = {
+            @ApiResponse(responseCode = "200", description = "poizvedba uspešna", content = @Content(schema = @Schema(implementation = Artikel.class))),
+            @ApiResponse(responseCode = "500", description = "Napaka 500 - Error on backend")
+    })
 
     @GET
     public Response vrniSeznami(){
@@ -46,20 +50,9 @@ public class SeznamVir {
                 .build();
     }
 
-    @Operation(description="Vrne podrobnosti Seznama.", summary="Podrobnosti seznama",tags="seznami",
-            responses={
-                    @ApiResponse(responseCode = "200",
-                            description = "Podrobnosti seznama",
-                            content = @Content(
-                                    array = @ArraySchema(schema = @Schema(implementation = NakupovalniSeznam.class)))
-
-                    )});
-
-
-
     @GET
     @Path("{id}")
-    public Response vrniSeznam((@Parameter(description="Identifikator",
+    public Response vrniSeznam(@Parameter(description="Identifikator",
             required=true)@PathParam("id") Integer id){
 
         NakupovalniSeznam seznam = nakupovalniSeznamZrno.pridobiSeznam(id);
@@ -72,18 +65,6 @@ public class SeznamVir {
         }
     }
 
-    @Operation(description="Dodajanje Seznama.", summary="Dodaj seznam",tags="seznami",
-            responses={
-                    @ApiResponse(responseCode = "200",
-                            description = "Seznam uspešno dodan"
-
-                    ),
-                    @ApiResponse(responseCode = "405",
-                            description = "Validacija napake")
-
-            });
-
-
     @POST
     public Response dodajUporabnika(@RequestBody(description ="DTO objekt za dodajanje seznama",
             required=true, content=@Content(schema = @Schema(implementation = NakupovalniSeznam.class)))NakupovalniSeznam seznam){
@@ -91,14 +72,7 @@ public class SeznamVir {
         return Response.status(Response.Status.CREATED).entity(nakupovalniSeznamZrno.dodajSeznam(seznam)).build();
     }
 
-    @Operation(description="Posodobi seznam.", summary="Posodobi Seznam",tags="seznami",
-            responses={
-                    @ApiResponse(responseCode = "200",
-                            description = "Seznam uspešno posodobljen"
 
-                    ),
-
-            });
     @PUT
     @Path("{id}")
     public Response posodobiUporabnika(@Parameter(description="Identifikator",
@@ -106,18 +80,7 @@ public class SeznamVir {
             required=true, content=@Content(schema = @Schema(implementation = NakupovalniSeznam.class)))@PathParam("id") Integer id, NakupovalniSeznam seznam){
         return Response.status(Response.Status.CREATED).entity(nakupovalniSeznamZrno.posodobiSeznam(id, seznam)).build();
     }
-    @Operation(description="Odstrani Seznam.", summary="Odstrani Seznam",tags="seznami",
-            responses={
-                    @ApiResponse(responseCode = "200",
-                            description = "Seznam uspešno odstranjen"
 
-                    ),
-                    @ApiResponse(responseCode = "404",
-                            description = "Seznam ne obstaja"
-
-                    )
-
-            });
     @DELETE
     @Path("{id}")
     public Response odstraniUporabnika(@Parameter(description="Identifikator",

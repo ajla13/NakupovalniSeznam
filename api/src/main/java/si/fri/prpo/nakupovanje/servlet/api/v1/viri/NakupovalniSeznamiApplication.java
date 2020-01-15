@@ -1,5 +1,14 @@
 package si.fri.prpo.nakupovanje.servlet.api.v1.viri;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.info.Contact;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.info.License;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.annotations.servers.Server;
+
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 @SecurityScheme(name = "openid-connect", type = SecuritySchemeType.OPENIDCONNECT,

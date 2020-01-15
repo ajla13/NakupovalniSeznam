@@ -2,6 +2,14 @@ package si.fri.prpo.nakupovanje.servlet.api.v1.viri;
 
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import si.fri.prpo.nakupovanje.entitete.Artikel;
 import si.fri.prpo.nakupovanje.entitete.NakupovalniSeznam;
 import si.fri.prpo.nakupovanje.zrno.ArtikelZrno;
@@ -49,14 +57,6 @@ public class ArtikelVir {
                 .header( "X-Total-Count",pridobiArtikleCount)
                 .build();
     }
-    @Operation(description="Vrne podrobnosti artikla.", summary="Podrobnosti artikla",tags="artikli",
-            responses={
-                    @ApiResponse(responseCode = "200",
-                            description = "Podrobnosti artikla",
-                            content = @Content(
-                                    array = @ArraySchema(schema = @Schema(implementation = Artikel.class)))
-
-                    )});
 
     @GET
     @Path("{id}")
@@ -67,16 +67,7 @@ public class ArtikelVir {
 
         return Response.status(Response.Status.OK).entity(artikel).build();
     }
-    @Operation(description="Dodajanje Artikla.", summary="Dodaj artikel",tags="artikli",
-            responses={
-                    @ApiResponse(responseCode = "200",
-                            description = "Arikel uspešno dodan"
 
-                    ),
-                    @ApiResponse(responseCode = "405",
-                            description = "Validacija napake")
-
-            });
 
     @POST
     public Response dodajArtikel(@RequestBody(description ="DTO objekt za dodajanje artikla",
@@ -84,14 +75,7 @@ public class ArtikelVir {
 
         return Response.status(Response.Status.CREATED).entity(artikelZrno.dodajArtikel(artikel)).build();
     }
-    @Operation(description="Posodobi artikel.", summary="Posodobi artikel",tags="artikel",
-            responses={
-                    @ApiResponse(responseCode = "200",
-                            description = "Artikel uspešno posodobljen"
 
-                    ),
-
-            });
     @PUT
     @Path("{id}")
     public Response posodobiArtikel(@Parameter(description="Identifikator",
@@ -99,18 +83,7 @@ public class ArtikelVir {
             required=true, content=@Content(schema = @Schema(implementation = Artikel.class)))@PathParam("id") Integer id, Artikel artikel){
         return Response.status(Response.Status.OK).entity(artikelZrno.posodobiArtikel(id, artikel)).build();
     }
-    @Operation(description="Odstrani Arikel.", summary="Odstrani artikel",tags="artikli",
-            responses={
-                    @ApiResponse(responseCode = "200",
-                            description = "Arikel uspešno odstranjen"
 
-                    ),
-                    @ApiResponse(responseCode = "404",
-                            description = "Artikel ne obstaja"
-
-                    )
-
-            });
     @DELETE
     @Path("{id}")
     public Response odstraniArtikel(@Parameter(description="Identifikator",
